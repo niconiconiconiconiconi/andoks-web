@@ -1,8 +1,8 @@
-import { Search, ShoppingCart, UserCircle2, Drumstick } from 'lucide-react'
+import { Search, ShoppingCart, UserCircle2, Menu } from 'lucide-react'
 import { brand, topNavLinks } from '../data'
 import { useCart } from '../cart'
 
-export default function TopNav({ onToggleView, viewLabel, onOpenMenu, onOpenCart, onOpenDeals, onOpenRewards, activePage = 'menu' }) {
+export default function TopNav({ onToggleView, viewLabel, onOpenMenu, onOpenCart, onOpenDeals, onOpenRewards, onOpenNav, activePage = 'menu' }) {
   const { count } = useCart()
 
   // Map data-driven links to state routes: Menu -> menu page, Orders -> cart.
@@ -21,13 +21,21 @@ export default function TopNav({ onToggleView, viewLabel, onOpenMenu, onOpenCart
   return (
     <header className="sticky top-0 z-30 h-20 w-full bg-canvas shadow-card">
       <div className="mx-auto flex h-20 max-w-shell items-center justify-between px-4 sm:px-12">
-        {/* Brand */}
-        <button onClick={onOpenMenu} className="flex items-center gap-2">
-          <Drumstick className="h-[18px] w-4 text-brand-bright" />
-          <span className="text-2xl font-bold tracking-[-0.6px] text-brand-bright">
-            {brand.name}
-          </span>
-        </button>
+        {/* Left: mobile category toggle (menu page only) + brand */}
+        <div className="flex items-center gap-2">
+          {activePage === 'menu' && (
+            <button
+              onClick={onOpenNav}
+              className="rounded-full p-2 text-cocoa hover:bg-panel lg:hidden"
+              aria-label="Open categories"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          )}
+          <button onClick={onOpenMenu} className="flex items-center gap-2" aria-label={brand.name}>
+            <img src={brand.logo} alt={brand.name} className="h-10 w-auto" />
+          </button>
+        </div>
 
         {/* Desktop links */}
         <nav className="hidden items-center gap-8 md:flex">

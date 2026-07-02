@@ -19,6 +19,7 @@ export default function App() {
   const [activeCat, setActiveCat] = useState(categories[0]?.id)
   // Lightweight state-driven routing (no router installed).
   const [page, setPage] = useState({ name: 'menu', productId: null })
+  const [navOpen, setNavOpen] = useState(false) // mobile category drawer
   const showCombo = view === 'combo'
 
   const shown = useMemo(
@@ -64,12 +65,18 @@ export default function App() {
           onOpenCart={openCart}
           onOpenDeals={openDeals}
           onOpenRewards={openRewards}
+          onOpenNav={() => setNavOpen(true)}
           activePage={page.name}
         />
 
         {page.name === 'menu' && (
           <div className="mx-auto flex max-w-shell items-start">
-            <SideNav activeId={activeCat} onSelect={setActiveCat} />
+            <SideNav
+              activeId={activeCat}
+              onSelect={setActiveCat}
+              open={navOpen}
+              onClose={() => setNavOpen(false)}
+            />
 
             <main className="flex flex-1 flex-col gap-6 p-4 sm:p-12">
               <Hero />

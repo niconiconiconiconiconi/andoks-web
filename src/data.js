@@ -3,7 +3,12 @@
 // Prices in PHP (converted from cents). Descriptions fall back to dummy where API had none.
 // Refresh: re-run the scraper; cart/checkout live on a separate page (next session).
 
-export const brand = { name: "Andok's" }
+// Official Andok's logo (mascot + wordmark), saved locally from
+// andoksdelivery.com.ph's apple-touch-icon. Imported so Vite resolves the URL
+// under the configured base path. Wordmark is baked in, so screens can show
+// the image alone without a separate text label.
+import andoksLogo from './assets/andoks-logo.webp'
+export const brand = { name: "Andok's", logo: andoksLogo }
 
 export const topNavLinks = [
   { label: 'Menu', href: '#', active: true },
