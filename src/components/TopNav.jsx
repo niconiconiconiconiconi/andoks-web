@@ -34,6 +34,9 @@ export default function TopNav({ onToggleView, viewLabel, onOpenMenu, onOpenCart
           )}
           <button onClick={onOpenMenu} className="flex items-center gap-2" aria-label={brand.name}>
             <img src={brand.logo} alt={brand.name} className="h-10 w-auto" />
+            <span className="hidden text-2xl font-bold tracking-[-0.6px] text-brand-bright lg:inline">
+              {brand.name}
+            </span>
           </button>
         </div>
 
