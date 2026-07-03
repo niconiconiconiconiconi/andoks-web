@@ -655,6 +655,47 @@ export const combo = {
   ],
 }
 
+// ---------------------------------------------------------------------------
+// DUMMY STUB — Careers screen. Andok's has no public jobs API; everything
+// below is fake demo data. "Apply" buttons open a mailto: to the (dummy)
+// recruitment inbox — no ATS, no form submission.
+// ---------------------------------------------------------------------------
+export const careers = {
+  intro: {
+    title: 'Join the Andok’s Family',
+    blurb:
+      'From our grills to your table, every Andok’s meal is made by people who love what they do. Grow your career with the Philippines’ favorite litson brand.',
+  },
+  contact: {
+    email: 'careers@andoks.com.ph',
+    phone: '+63 2 8888 1234',
+    address: 'Andok’s Litson Corp., 123 Litson Ave., Quezon City, Metro Manila',
+  },
+  positions: [
+    {
+      id: 'store-crew',
+      title: 'Store Crew',
+      location: 'Quezon City',
+      type: 'Full-time',
+      desc: 'Serve customers, prep orders, and keep the store running with a smile. No experience needed — we train you on the grill.',
+    },
+    {
+      id: 'branch-manager',
+      title: 'Branch Manager',
+      location: 'Makati City',
+      type: 'Full-time',
+      desc: 'Lead a store team, hit sales targets, and own day-to-day operations. 2+ years food-service supervisory experience preferred.',
+    },
+    {
+      id: 'delivery-rider',
+      title: 'Delivery Rider',
+      location: 'Pasig City',
+      type: 'Part-time',
+      desc: 'Deliver hot litson fast and safe. Must have own motorcycle and valid driver’s license. Flexible shifts available.',
+    },
+  ],
+}
+
 export const footerLinks = ['Privacy Policy', 'Terms of Service', 'Careers', 'Contact']
 export const footerCopyright = "© 2026 Andok's Litson Corp. All rights reserved."
 

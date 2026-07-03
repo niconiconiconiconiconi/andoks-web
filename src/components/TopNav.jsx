@@ -2,7 +2,7 @@ import { Search, ShoppingCart, UserCircle2, Menu } from 'lucide-react'
 import { brand, topNavLinks } from '../data'
 import { useCart } from '../cart'
 
-export default function TopNav({ onToggleView, viewLabel, onOpenMenu, onOpenCart, onOpenDeals, onOpenRewards, onOpenNav, activePage = 'menu' }) {
+export default function TopNav({ onToggleView, viewLabel, onOpenMenu, onOpenCart, onOpenDeals, onOpenRewards, onOpenCareers, onOpenNav, activePage = 'menu' }) {
   const { count } = useCart()
 
   // Map data-driven links to state routes: Menu -> menu page, Orders -> cart.
@@ -23,15 +23,13 @@ export default function TopNav({ onToggleView, viewLabel, onOpenMenu, onOpenCart
       <div className="mx-auto flex h-20 max-w-shell items-center justify-between px-4 sm:px-12">
         {/* Left: mobile category toggle (menu page only) + brand */}
         <div className="flex items-center gap-2">
-          {activePage === 'menu' && (
-            <button
-              onClick={onOpenNav}
-              className="rounded-full p-2 text-cocoa hover:bg-panel lg:hidden"
-              aria-label="Open categories"
-            >
-              <Menu className="h-5 w-5" />
-            </button>
-          )}
+          <button
+            onClick={onOpenNav}
+            className="rounded-full p-2 text-cocoa hover:bg-panel lg:hidden"
+            aria-label="Open menu"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
           <button onClick={onOpenMenu} className="flex items-center gap-2" aria-label={brand.name}>
             <img src={brand.logo} alt={brand.name} className="h-10 w-auto" />
             <span className="hidden text-2xl font-bold tracking-[-0.6px] text-brand-bright lg:inline">
@@ -62,6 +60,12 @@ export default function TopNav({ onToggleView, viewLabel, onOpenMenu, onOpenCart
             className={activePage === 'rewards' ? activeCls : inactiveCls}
           >
             Rewards
+          </button>
+          <button
+            onClick={onOpenCareers}
+            className={activePage === 'careers' ? activeCls : inactiveCls}
+          >
+            Careers
           </button>
         </nav>
 

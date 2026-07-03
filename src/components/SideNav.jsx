@@ -1,9 +1,10 @@
-import { LogOut, X } from 'lucide-react'
+import { LogOut } from 'lucide-react'
 import { categories } from '../data'
 import Icon from './Icon'
 
-// Shared inner content — reused by the desktop rail and the mobile drawer.
-function NavBody({ activeId, onSelect }) {
+// Category buttons — shared by the desktop rail (below) and the mobile drawer
+// (MobileNav). Renders the "Categories" heading plus the category list.
+export function CategoryList({ activeId, onSelect }) {
   return (
     <>
       <div className="flex flex-col gap-1">
@@ -41,6 +42,16 @@ function NavBody({ activeId, onSelect }) {
           )
         })}
       </nav>
+    </>
+  )
+}
+
+// Category navigation — desktop left rail only (lg+). Mobile navigation
+// (page links + categories) lives in MobileNav, opened from TopNav's hamburger.
+export default function SideNav({ activeId, onSelect }) {
+  return (
+    <aside className="hidden w-64 shrink-0 flex-col gap-6 self-stretch overflow-y-auto border-r border-[rgba(225,227,228,0.3)] bg-panel p-6 shadow-card lg:flex">
+      <CategoryList activeId={activeId} onSelect={onSelect} />
 
       {/* Pinned to bottom */}
       <div className="mt-auto border-t border-[rgba(225,227,228,0.3)] pt-6">
@@ -49,46 +60,6 @@ function NavBody({ activeId, onSelect }) {
           Sign Out
         </button>
       </div>
-    </>
-  )
-}
-
-// Category navigation. Desktop: static left rail (lg+). Mobile/narrow: a
-// slide-over drawer toggled from TopNav's hamburger. Selecting a category
-// closes the drawer.
-export default function SideNav({ activeId, onSelect, open = false, onClose }) {
-  const selectAndClose = (id) => {
-    onSelect?.(id)
-    onClose?.()
-  }
-
-  return (
-    <>
-      {/* Desktop rail */}
-      <aside className="hidden w-64 shrink-0 flex-col gap-6 self-stretch overflow-y-auto border-r border-[rgba(225,227,228,0.3)] bg-panel p-6 shadow-card lg:flex">
-        <NavBody activeId={activeId} onSelect={onSelect} />
-      </aside>
-
-      {/* Mobile drawer */}
-      {open && (
-        <div className="fixed inset-0 z-40 lg:hidden">
-          <div
-            className="absolute inset-0 bg-black/40"
-            onClick={onClose}
-            aria-hidden="true"
-          />
-          <aside className="absolute inset-y-0 left-0 flex w-72 max-w-[80%] flex-col gap-6 overflow-y-auto bg-panel p-6 shadow-card">
-            <button
-              onClick={onClose}
-              className="absolute right-4 top-4 rounded-full p-1 text-cocoa hover:bg-black/5"
-              aria-label="Close categories"
-            >
-              <X className="h-5 w-5" />
-            </button>
-            <NavBody activeId={activeId} onSelect={selectAndClose} />
-          </aside>
-        </div>
-      )}
-    </>
+    </aside>
   )
 }

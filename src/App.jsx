@@ -3,6 +3,7 @@ import { CartProvider } from './cart'
 import { products, categories } from './data'
 import TopNav from './components/TopNav'
 import SideNav from './components/SideNav'
+import MobileNav from './components/MobileNav'
 import Hero from './components/Hero'
 import ComboPromo from './components/ComboPromo'
 import SectionHeader from './components/SectionHeader'
@@ -12,6 +13,7 @@ import CartSummary from './components/CartSummary'
 import Checkout from './components/Checkout'
 import HotDeals from './components/HotDeals'
 import MyRewards from './components/MyRewards'
+import Careers from './components/Careers'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -49,6 +51,25 @@ export default function App() {
     setPage({ name: 'checkout', productId: null })
     window.scrollTo({ top: 0 })
   }
+  const openCareers = () => {
+    setPage({ name: 'careers', productId: null })
+    window.scrollTo({ top: 0 })
+  }
+
+  // Selecting a category from the mobile drawer also returns to the menu page.
+  const selectCategory = (id) => {
+    setActiveCat(id)
+    openMenu()
+  }
+
+  // Primary nav for the mobile drawer — mirrors TopNav's desktop links.
+  const navLinks = [
+    { label: 'Menu', onClick: openMenu, active: page.name === 'menu' },
+    { label: 'Hot Deals', onClick: openDeals, active: page.name === 'deals' },
+    { label: 'Rewards', onClick: openRewards, active: page.name === 'rewards' },
+    { label: 'Careers', onClick: openCareers, active: page.name === 'careers' },
+    { label: 'Orders', onClick: openCart, active: page.name === 'cart' },
+  ]
 
   const activeProduct =
     page.name === 'product'
@@ -65,18 +86,22 @@ export default function App() {
           onOpenCart={openCart}
           onOpenDeals={openDeals}
           onOpenRewards={openRewards}
+          onOpenCareers={openCareers}
           onOpenNav={() => setNavOpen(true)}
           activePage={page.name}
         />
 
+        <MobileNav
+          open={navOpen}
+          onClose={() => setNavOpen(false)}
+          links={navLinks}
+          activeCat={activeCat}
+          onSelectCat={selectCategory}
+        />
+
         {page.name === 'menu' && (
           <div className="mx-auto flex max-w-shell items-start">
-            <SideNav
-              activeId={activeCat}
-              onSelect={setActiveCat}
-              open={navOpen}
-              onClose={() => setNavOpen(false)}
-            />
+            <SideNav activeId={activeCat} onSelect={setActiveCat} />
 
             <main className="flex flex-1 flex-col gap-6 p-4 sm:p-12">
               <Hero />
@@ -106,6 +131,8 @@ export default function App() {
 
         {page.name === 'rewards' && <MyRewards />}
 
+        {page.name === 'careers' && <Careers />}
+
         {page.name === 'cart' && (
           <CartSummary onBack={openMenu} onCheckout={openCheckout} />
         )}
@@ -114,7 +141,7 @@ export default function App() {
           <Checkout onBack={openCart} onBackToMenu={openMenu} />
         )}
 
-        <Footer />
+        <Footer onOpenCareers={openCareers} />
       </div>
     </CartProvider>
   )
